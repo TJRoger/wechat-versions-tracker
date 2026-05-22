@@ -12,7 +12,9 @@ Tracks WeChat Mac and Windows installer versions. A GitHub Actions workflow chec
 ## Tracked versions
 
 <!-- versions:start -->
-_No versions tracked yet._
+| Platform | Version | Date | Size | SHA256 | Download |
+| --- | --- | --- | --- | --- | --- |
+| windows | `3.9.11.0` | 2026-05-22 | 270.0 MB | `c29fc05630cf` | [installer](https://github.com/TJRoger/wechat-versions-tracker/releases/download/windows-3.9.11.0/WeChat-windows-3.9.11.0.exe) |
 <!-- versions:end -->
 
 ## Manual trigger

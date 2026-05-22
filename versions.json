@@ -1,2 +1,12 @@
 [
+  {
+    "platform": "windows",
+    "version": "3.9.11.0",
+    "date": "2026-05-22",
+    "size": 283125176,
+    "sha256": "c29fc05630cfc95ef6483f6b5b52aabfe74265bb260e210e78ae437d305d8990",
+    "source_url": "https://dldir1.qq.com/weixin/Windows/WeChatSetup.exe",
+    "release_url": "https://github.com/TJRoger/wechat-versions-tracker/releases/tag/windows-3.9.11.0",
+    "download_url": "https://github.com/TJRoger/wechat-versions-tracker/releases/download/windows-3.9.11.0/WeChat-windows-3.9.11.0.exe"
+  }
 ]
