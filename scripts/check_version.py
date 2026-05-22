@@ -45,28 +45,68 @@ def download(url: str, dest: Path) -> None:
             f.write(chunk)
 
 
+def _find_wechat_version(base: Path) -> str | None:
+    """Walk an extracted tree for WeChat's Info.plist and return the version."""
+    for plist_path in sorted(base.rglob("Info.plist")):
+        try:
+            with open(plist_path, "rb") as f:
+                data = plistlib.load(f)
+        except Exception:
+            continue
+        bundle_id = (data.get("CFBundleIdentifier") or "").lower()
+        if "xinwechat" in bundle_id and "mainapp" not in bundle_id:
+            v = data.get("CFBundleShortVersionString")
+            if v:
+                return v
+    return None
+
+
 def get_mac_version(dmg_path: Path) -> str | None:
-    """Extract CFBundleShortVersionString from WeChat.app/Contents/Info.plist inside the DMG."""
+    """Return CFBundleShortVersionString from WeChat.app inside the DMG."""
+    if sys.platform == "darwin":
+        return _get_mac_version_hdiutil(dmg_path)
+    return _get_mac_version_7z(dmg_path)
+
+
+def _get_mac_version_hdiutil(dmg_path: Path) -> str | None:
     with tempfile.TemporaryDirectory() as tmp:
-        result = subprocess.run(
-            ["7z", "x", "-y", f"-o{tmp}", str(dmg_path)],
+        mount = Path(tmp) / "mnt"
+        mount.mkdir()
+        r = subprocess.run(
+            ["hdiutil", "attach", str(dmg_path), "-mountpoint", str(mount),
+             "-nobrowse", "-noverify", "-noautoopen"],
             capture_output=True, text=True,
         )
-        if result.returncode != 0:
-            print(f"[mac] 7z extraction failed: {result.stderr[:500]}", file=sys.stderr)
+        if r.returncode != 0:
+            print(f"[mac] hdiutil attach failed: {r.stderr[:300]}", file=sys.stderr)
             return None
-        for plist_path in sorted(Path(tmp).rglob("Info.plist")):
-            try:
-                with open(plist_path, "rb") as f:
-                    data = plistlib.load(f)
-            except Exception:
-                continue
-            bundle_id = (data.get("CFBundleIdentifier") or "").lower()
-            if "xinwechat" in bundle_id and "mainapp" not in bundle_id:
-                v = data.get("CFBundleShortVersionString")
-                if v:
-                    return v
-    return None
+        try:
+            return _find_wechat_version(mount)
+        finally:
+            subprocess.run(["hdiutil", "detach", str(mount), "-quiet"],
+                           capture_output=True)
+
+
+def _get_mac_version_7z(dmg_path: Path) -> str | None:
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp_path = Path(tmp)
+        # 7z prints non-zero on the /Applications symlink (dangerous link path)
+        # but still extracts the rest, so ignore the return code and look for
+        # Info.plist after extraction.
+        subprocess.run(
+            ["7z", "x", "-y", f"-o{tmp_path / 'step1'}", str(dmg_path)],
+            capture_output=True, text=True,
+        )
+        # DMGs often contain an inner .hfs partition that needs a second pass.
+        for hfs in (tmp_path / "step1").rglob("*.hfs"):
+            subprocess.run(
+                ["7z", "x", "-y", f"-o{tmp_path / 'step2'}", str(hfs)],
+                capture_output=True, text=True,
+            )
+        v = _find_wechat_version(tmp_path)
+        if not v:
+            print("[mac] no WeChat Info.plist found after extraction", file=sys.stderr)
+        return v
 
 
 def get_windows_version(exe_path: Path) -> str | None:
