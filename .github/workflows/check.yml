@@ -1,0 +1,49 @@
+name: Check WeChat Versions
+
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: check-versions
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install extraction tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y p7zip-full libimage-exiftool-perl
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Check versions and publish releases
+        id: check
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: python3 scripts/check_version.py
+
+      - name: Update README versions table
+        if: steps.check.outputs.has_updates == 'true'
+        run: python3 scripts/update_readme.py
+
+      - name: Commit version updates
+        if: steps.check.outputs.has_updates == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add versions.json README.md
+          git commit -m "chore: add ${{ steps.check.outputs.new_versions }}"
+          git push
