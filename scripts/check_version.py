@@ -17,6 +17,16 @@ import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 
+# Configure SOCKS proxy if ALL_PROXY is set
+if os.environ.get("ALL_PROXY"):
+    import socks
+    import socket
+    proxy_url = os.environ["ALL_PROXY"]
+    if proxy_url.startswith("socks5://"):
+        proxy_host_port = proxy_url.replace("socks5://", "").split(":")
+        socks.set_default_proxy(socks.SOCKS5, proxy_host_port[0], int(proxy_host_port[1]))
+        socket.socket = socks.socksocket
+
 REPO_ROOT = Path(__file__).resolve().parent.parent
 VERSIONS_FILE = REPO_ROOT / "versions.json"
 

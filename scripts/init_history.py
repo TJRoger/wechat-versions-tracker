@@ -17,6 +17,16 @@ import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 
+# Configure SOCKS proxy if ALL_PROXY is set
+if os.environ.get("ALL_PROXY"):
+    import socks
+    import socket
+    proxy_url = os.environ["ALL_PROXY"]
+    if proxy_url.startswith("socks5://"):
+        proxy_host_port = proxy_url.replace("socks5://", "").split(":")
+        socks.set_default_proxy(socks.SOCKS5, proxy_host_port[0], int(proxy_host_port[1]))
+        socket.socket = socks.socksocket
+
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import check_version
 
@@ -71,18 +81,21 @@ def main() -> int:
             if not try_download(url, dest):
                 continue
 
+            # The URL path embeds the version (e.g. WeChatMac_4.1.10.dmg) and the
+            # CDN returns HTTP 404 for non-existent versions, so a successful
+            # download is itself confirmation. Only try to extract from the DMG
+            # as a sanity check; if extraction fails (newer 4.x layouts can hide
+            # Info.plist behind formats hdiutil/7z don't fully unpack), trust
+            # the URL.
             detected_version = check_version.get_mac_version(dest)
-            if not detected_version:
-                print(f"[mac] could not extract version from {url}", file=sys.stderr)
-                continue
-
-            if detected_version != version:
+            if detected_version and detected_version != version:
                 print(f"[mac] version mismatch: URL has {version}, dmg has {detected_version}")
-                # Use the detected version from the file
                 version = detected_version
                 if ("mac", version) in seen:
                     print(f"[mac] {version} already recorded after detection, skipping")
                     continue
+            elif not detected_version:
+                print(f"[mac] extraction failed; trusting URL version {version}")
 
             print(f"[mac] confirmed version: {version}")
             checksum = sha256(dest)
