@@ -26,5 +26,5 @@ Go to Actions → "Check WeChat Versions" → "Run workflow" to check immediatel
 
 | Platform | URL |
 | --- | --- |
-| Mac | `https://dldir1.qq.com/weixin/mac/WeChatMac.dmg` |
+| Mac | `https://dldir1v6.qq.com/weixin/Universal/Mac/WeChatMac.dmg` |
 | Windows | `https://dldir1.qq.com/weixin/Windows/WeChatSetup.exe` |

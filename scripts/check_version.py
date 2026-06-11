@@ -21,7 +21,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 VERSIONS_FILE = REPO_ROOT / "versions.json"
 
 SOURCES = {
-    "mac": ("https://dldir1.qq.com/weixin/mac/WeChatMac.dmg", ".dmg"),
+    "mac": ("https://dldir1v6.qq.com/weixin/Universal/Mac/WeChatMac.dmg", ".dmg"),
     "windows": ("https://dldir1.qq.com/weixin/Windows/WeChatSetup.exe", ".exe"),
 }
 
@@ -46,7 +46,15 @@ def download(url: str, dest: Path) -> None:
 
 
 def _find_wechat_version(base: Path) -> str | None:
-    """Walk an extracted tree for WeChat's Info.plist and return the version."""
+    """Walk an extracted tree for the main WeChat app's Info.plist and return the version.
+
+    The app bundle contains several nested bundles whose ids start with
+    ``com.tencent.xinwechat`` (share/file-provider app extensions, and a Sparkle
+    updater XPC service that carries its own unrelated version like ``2.6.4``).
+    Only the top-level app bundle has the bare id ``com.tencent.xinwechat``, so
+    match that exactly and fall back to a substring match if the layout changes.
+    """
+    fallback: str | None = None
     for plist_path in sorted(base.rglob("Info.plist")):
         try:
             with open(plist_path, "rb") as f:
@@ -54,11 +62,14 @@ def _find_wechat_version(base: Path) -> str | None:
         except Exception:
             continue
         bundle_id = (data.get("CFBundleIdentifier") or "").lower()
-        if "xinwechat" in bundle_id and "mainapp" not in bundle_id:
-            v = data.get("CFBundleShortVersionString")
-            if v:
-                return v
-    return None
+        version = data.get("CFBundleShortVersionString")
+        if not version:
+            continue
+        if bundle_id == "com.tencent.xinwechat":
+            return version
+        if fallback is None and "xinwechat" in bundle_id and "mainapp" not in bundle_id:
+            fallback = version
+    return fallback
 
 
 def get_mac_version(dmg_path: Path) -> str | None:
