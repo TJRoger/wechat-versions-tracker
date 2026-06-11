@@ -14,7 +14,6 @@ Tracks WeChat Mac and Windows installer versions. A GitHub Actions workflow chec
 <!-- versions:start -->
 | Platform | Version | Date | Size | SHA256 | Download |
 | --- | --- | --- | --- | --- | --- |
-| mac | `2.6.0` | 2026-05-23 | 353.4 MB | `10fe0e2e76cd` | [installer](https://github.com/TJRoger/wechat-versions-tracker/releases/download/mac-2.6.0/WeChat-mac-2.6.0.dmg) |
 | windows | `3.9.11.0` | 2026-05-22 | 270.0 MB | `c29fc05630cf` | [installer](https://github.com/TJRoger/wechat-versions-tracker/releases/download/windows-3.9.11.0/WeChat-windows-3.9.11.0.exe) |
 <!-- versions:end -->
 

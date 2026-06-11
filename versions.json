@@ -1,15 +1,5 @@
 [
   {
-    "platform": "mac",
-    "version": "2.6.0",
-    "date": "2026-05-23",
-    "size": 370574676,
-    "sha256": "10fe0e2e76cd513f2123cddfacaa68c39ffd6f305e5f6d746e6dc3ba6eaabf84",
-    "source_url": "https://dldir1.qq.com/weixin/mac/WeChatMac.dmg",
-    "release_url": "https://github.com/TJRoger/wechat-versions-tracker/releases/tag/mac-2.6.0",
-    "download_url": "https://github.com/TJRoger/wechat-versions-tracker/releases/download/mac-2.6.0/WeChat-mac-2.6.0.dmg"
-  },
-  {
     "platform": "windows",
     "version": "3.9.11.0",
     "date": "2026-05-22",
