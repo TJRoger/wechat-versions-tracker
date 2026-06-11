@@ -1,5 +1,85 @@
 [
   {
+    "platform": "mac",
+    "version": "4.1.10",
+    "date": "2026-06-11",
+    "size": 490691923,
+    "sha256": "229ef91360297c5588380a31af5d72ae3e2a5efb39ea366c866afb59c5b05923",
+    "source_url": "https://dldir1v6.qq.com/weixin/Universal/Mac/WeChatMac_4.1.10.dmg",
+    "release_url": "https://github.com/TJRoger/wechat-versions-tracker/releases/tag/mac-4.1.10",
+    "download_url": "https://github.com/TJRoger/wechat-versions-tracker/releases/download/mac-4.1.10/WeChat-mac-4.1.10.dmg"
+  },
+  {
+    "platform": "mac",
+    "version": "4.1.9",
+    "date": "2026-06-11",
+    "size": 488675229,
+    "sha256": "531f5dc9c4ccae49575b80ab86e1badc63e4fec4df5334cfcf1f2ce69767c555",
+    "source_url": "https://dldir1v6.qq.com/weixin/Universal/Mac/WeChatMac_4.1.9.dmg",
+    "release_url": "https://github.com/TJRoger/wechat-versions-tracker/releases/tag/mac-4.1.9",
+    "download_url": "https://github.com/TJRoger/wechat-versions-tracker/releases/download/mac-4.1.9/WeChat-mac-4.1.9.dmg"
+  },
+  {
+    "platform": "mac",
+    "version": "4.1.8",
+    "date": "2026-06-11",
+    "size": 483369372,
+    "sha256": "972823a966cdaa1f5f0a785bc9f1219d174a75f43d30ec0fbf9ba7ab0249b2f1",
+    "source_url": "https://dldir1v6.qq.com/weixin/Universal/Mac/WeChatMac_4.1.8.dmg",
+    "release_url": "https://github.com/TJRoger/wechat-versions-tracker/releases/tag/mac-4.1.8",
+    "download_url": "https://github.com/TJRoger/wechat-versions-tracker/releases/download/mac-4.1.8/WeChat-mac-4.1.8.dmg"
+  },
+  {
+    "platform": "mac",
+    "version": "4.1.7",
+    "date": "2026-06-11",
+    "size": 480161335,
+    "sha256": "4ee1f0e33f912093ef2ebbb4b9ee0d9a7c480c0482a0fe798da3f1219031a513",
+    "source_url": "https://dldir1v6.qq.com/weixin/Universal/Mac/WeChatMac_4.1.7.dmg",
+    "release_url": "https://github.com/TJRoger/wechat-versions-tracker/releases/tag/mac-4.1.7",
+    "download_url": "https://github.com/TJRoger/wechat-versions-tracker/releases/download/mac-4.1.7/WeChat-mac-4.1.7.dmg"
+  },
+  {
+    "platform": "mac",
+    "version": "4.1.6",
+    "date": "2026-06-11",
+    "size": 469868561,
+    "sha256": "a0468c8b53bacdd088c4f1d0b7ad5060b40ca8ef860053b977ecc752e25493d5",
+    "source_url": "https://dldir1v6.qq.com/weixin/Universal/Mac/WeChatMac_4.1.6.dmg",
+    "release_url": "https://github.com/TJRoger/wechat-versions-tracker/releases/tag/mac-4.1.6",
+    "download_url": "https://github.com/TJRoger/wechat-versions-tracker/releases/download/mac-4.1.6/WeChat-mac-4.1.6.dmg"
+  },
+  {
+    "platform": "mac",
+    "version": "4.1.5",
+    "date": "2026-06-11",
+    "size": 443337404,
+    "sha256": "8a7227f2094ece0053ee6d4157197c66fb521213a5004ed9b0cd1e85e8135696",
+    "source_url": "https://dldir1v6.qq.com/weixin/Universal/Mac/WeChatMac_4.1.5.dmg",
+    "release_url": "https://github.com/TJRoger/wechat-versions-tracker/releases/tag/mac-4.1.5",
+    "download_url": "https://github.com/TJRoger/wechat-versions-tracker/releases/download/mac-4.1.5/WeChat-mac-4.1.5.dmg"
+  },
+  {
+    "platform": "mac",
+    "version": "4.1.4",
+    "date": "2026-06-11",
+    "size": 432573646,
+    "sha256": "90622436d1d6b0955e590d5c28aa0e417db037c88a8a1a12d9b9e08470cfef76",
+    "source_url": "https://dldir1v6.qq.com/weixin/Universal/Mac/WeChatMac_4.1.4.dmg",
+    "release_url": "https://github.com/TJRoger/wechat-versions-tracker/releases/tag/mac-4.1.4",
+    "download_url": "https://github.com/TJRoger/wechat-versions-tracker/releases/download/mac-4.1.4/WeChat-mac-4.1.4.dmg"
+  },
+  {
+    "platform": "mac",
+    "version": "4.1.2",
+    "date": "2026-06-11",
+    "size": 428620717,
+    "sha256": "85f42e65cc7221359f9d3b95a239f5ea946e99c9840e51104f637fad345d3516",
+    "source_url": "https://dldir1v6.qq.com/weixin/Universal/Mac/WeChatMac_4.1.2.dmg",
+    "release_url": "https://github.com/TJRoger/wechat-versions-tracker/releases/tag/mac-4.1.2",
+    "download_url": "https://github.com/TJRoger/wechat-versions-tracker/releases/download/mac-4.1.2/WeChat-mac-4.1.2.dmg"
+  },
+  {
     "platform": "windows",
     "version": "3.9.11.0",
     "date": "2026-05-22",
